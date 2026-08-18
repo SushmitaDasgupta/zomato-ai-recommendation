@@ -28,7 +28,7 @@ flowchart LR
 
 **Tech default:** Python modular monolith — FastAPI backend, in-memory/parquet catalog, OpenAI-compatible LLM client — plus a **Next.js (App Router) frontend** built in **Phase 4** from the Tablepick Stitch screens.
 
-**v1 out of scope:** accounts, booking, live menus, fine-tuning, full Zomato parity, working Saved/History/Settings (chrome only).
+**v1 out of scope:** accounts, booking, live menus, fine-tuning, full Zomato parity. No Saved, History, Settings, or Account in the UI.
 
 Phases 0–3 own the engine and API contract. **Phase 4** is the product UI: do not ship Streamlit; do not treat a generic form as the frontend.
 
@@ -264,7 +264,7 @@ flowchart TD
 
 | Risk | Mitigation |
 |---|---|
-| Polish expands endlessly | Cap to checklist above; park embeddings/chat and Saved/History as post-v1 |
+| Polish expands endlessly | Cap to checklist above; park embeddings/chat and Saved/History as post-v1 (not in the v1 shell) |
 | Dataset locality gaps | Prefer neighbourhoods with high support from Phase 0 profile (`location` column) |
 
 **Estimated focus:** 1–2 days
@@ -316,7 +316,7 @@ Do **not** copy Stitch HTML wholesale. Port structure and tokens into React comp
 
 ```mermaid
 flowchart LR
-  Shell["AppShell<br/>nav · brand · mobile bars"]
+  Shell["AppShell<br/>Recommendations nav · brand · mobile bars"]
   Find["/ Find a table<br/>preference panel + empty canvas"]
   Results["/results<br/>Your Request + ranked cards"]
   API["FastAPI /recommend"]
@@ -328,7 +328,7 @@ flowchart LR
   Results -->|"Edit Request"| Find
 ```
 
-**v1 nav:** Recommendations is the only working destination. Saved, History, Settings, and Account render as Stitch chrome (disabled or “coming soon”).
+**v1 nav:** Recommendations is the only destination. Saved, History, Settings, and Account are **omitted** (not disabled chrome).
 
 ### Work breakdown
 
@@ -337,7 +337,7 @@ flowchart LR
 | 4.1 | Scaffold Next.js | `frontend/` with App Router, TS strict, Tailwind, path aliases; `pnpm` or `npm` |
 | 4.2 | Design tokens | Port `DESIGN.md` colors, type scale, radii, spacing into `tailwind.config` + CSS variables (`surface`, `level-0/1/2`, tomato `#E23D28`, gold `#D4B483`) |
 | 4.3 | Fonts | `next/font` (or Google Fonts) for **Newsreader** (display/headlines/AI quotes italic) and **Geist** (UI/labels/data) |
-| 4.4 | App shell | Desktop left nav + mobile top bar + bottom nav; brand “Tablepick” italic; catalog chip (e.g. “Bangalore catalog”) |
+| 4.4 | App shell | Desktop left nav + mobile top bar + bottom nav; brand “Tablepick” italic; catalog chip; **Recommendations only** (no Saved / History / Settings / Account) |
 | 4.5 | Dev proxy | Next.js `rewrites` `/api/*` → FastAPI (`localhost:8000`); secrets stay server-side |
 | 4.6 | Primitives | `Button`, `Chip`, `Input`, `Slider`, `SegmentedControl` — hairline borders, tomato focus, no drop shadows |
 | 4.7 | Preference form | Neighborhood (autocomplete from `location` localities), budget Low/Medium/High, cuisine chips, min-rating slider with live `3.5+` label, vibe textarea + chips (`family-friendly`, `romantic`, `rooftop`), sticky **Get recommendations** |
@@ -352,7 +352,7 @@ flowchart LR
 | 4.16 | Meta filters | Neighborhood autocomplete from `/meta/filters`.`locations` (catalog `location` column, e.g. Indiranagar, BTM) — **never** `cities` (Bangalore). Cuisine chips from `cuisines`. Fall back to free text if meta fails |
 | 4.17 | Footer meta | `k shown • n candidates • latency` from response `meta` |
 | 4.18 | Null / overflow | “N/A” or hide missing rating/cost; truncate long names; no layout break |
-| 4.19 | Responsive + a11y | Desktop: nav + ~380px column + canvas; mobile: stacked form, bottom nav; labeled controls; slider `aria-valuenow`; tomato focus ring (no glow) |
+| 4.19 | Responsive + a11y | Desktop: Recommendations-only nav + ~380px column + canvas; mobile: stacked form, Recs bottom nav; labeled controls; slider `aria-valuenow`; tomato focus ring (no glow) |
 | 4.20 | Docs | README: `uvicorn` + `next dev`; link Stitch files; demo preset is a `location` locality (e.g. Indiranagar Italian mid-budget), not the city name |
 
 ### Component inventory
@@ -361,7 +361,7 @@ Build small, reusable pieces from Stitch — not page-sized HTML dumps.
 
 | Component | Used on | Notes |
 |---|---|---|
-| `AppShell` | Both | Desktop side nav, mobile header + bottom nav |
+| `AppShell` | Both | Desktop side nav + mobile header/bottom nav; **Recommendations only** |
 | `BrandMark` | Shell | Newsreader italic “Tablepick” in primary |
 | `PreferenceForm` | `/` | Neighborhood from catalog `location`, budget, cuisine, rating, vibe, sticky CTA |
 | `EmptyCanvas` | `/` idle | Editorial headline + preset pill |
@@ -436,7 +436,7 @@ Browser talks only to the Next origin; Next rewrites `/api/*` to FastAPI. LLM ke
 |---|---|
 | Catalog has no photos | Skip imagery in v1; cards are typography-first |
 | Token drift vs Stitch HTML | Prefer `DESIGN.md` + Stitch classes (`bg-level-1`, tomato/gold) over ad-hoc hex |
-| Pixel-chasing unused nav | Match tokens, spacing, and component roles; do not build Saved/History |
+| Pixel-chasing unused nav | Do not render Saved / History / Settings / Account in v1 |
 | LLM latency feels broken | Skeleton + disable CTA; streaming is post-v1 |
 | Cuisine list vs huge catalog | Popular chips + autocomplete from `/meta/filters` |
 
@@ -503,13 +503,14 @@ From architecture future extensions — park until core works:
 
 1. Embeddings retrieval for soft free-text similarity  
 2. Multi-turn conversational refine  
-3. User session / preference history (wire Stitch **History**)  
-4. Saved restaurants (wire Stitch **Saved**)  
-5. Map / distance ranking  
-6. A/B test rules-only vs hybrid explanations  
-7. Learned ranker from click logs  
-8. Real restaurant photography  
-9. Stream LLM summary into the banner  
+3. User session / preference history (not in v1 shell)  
+4. Saved restaurants (not in v1 shell)  
+5. Settings and Account surfaces  
+6. Map / distance ranking  
+7. A/B test rules-only vs hybrid explanations  
+8. Learned ranker from click logs  
+9. Real restaurant photography  
+10. Stream LLM summary into the banner  
 
 ---
 

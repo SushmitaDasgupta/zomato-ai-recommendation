@@ -201,6 +201,7 @@ sequenceDiagram
 - Vercel project with Root Directory `frontend/`
 - `API_ORIGIN` set at **build** and runtime (Phase 1 URL)
 - Production Tablepick: Neighborhood from catalog `location`, recommend → `/results`
+- Nav is **Recommendations only** (no Saved, History, Settings, or Account)
 - Railway `CORS_ORIGINS` updated with the Vercel origin (for direct API clients; UI itself is same-origin)
 
 ### Gaps this phase closes
@@ -296,7 +297,7 @@ sequenceDiagram
 
 ### Exit criteria (Phase 2 done when)
 
-- [ ] Vercel `/` shows Tablepick (Newsreader + dark `#0E1114`); Neighborhood suggestions are localities from `location`, not `city`
+- [ ] Vercel `/` shows Tablepick (Newsreader + dark `#0E1114`); Neighborhood suggestions are localities from `location`, not `city`; shell nav is Recommendations only (no Saved / History / Settings / Account)
 - [ ] Submit → `/results` hero + rows; gold quote when `explanation` present; fallback label when `source=fallback`
 - [ ] Empty query (e.g. location `Atlantis`, cuisine `Martian`) stays on Tablepick empty state, not a blank 500
 - [ ] Vercel project env has no Groq/LLM keys
@@ -333,6 +334,7 @@ sequenceDiagram
 - Moving catalog to Postgres
 - CDN caching of `/meta/filters` (keep `cache: "no-store"` until facets are versioned)
 - Deploying Streamlit
+- Saved, History, Settings, and Account in Tablepick (Recommendations is the only nav destination)
 
 ---
 
