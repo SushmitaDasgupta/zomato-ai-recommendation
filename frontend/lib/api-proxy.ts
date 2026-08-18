@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isPublicHttpsOrigin, resolveApiOrigin } from "@/lib/api-origin";
 
-export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
-
-type RouteContext = { params: Promise<{ path: string[] }> };
-
 function hopByHop(name: string): boolean {
   return [
     "connection",
@@ -18,6 +13,8 @@ function hopByHop(name: string): boolean {
     "upgrade",
     "host",
     "content-length",
+    "cookie",
+    "authorization",
   ].includes(name.toLowerCase());
 }
 
@@ -42,21 +39,24 @@ function forwardResponseHeaders(source: Headers): Headers {
   return headers;
 }
 
-async function proxy(request: NextRequest, path: string[]): Promise<Response> {
+export function missingApiOriginResponse(): NextResponse {
+  return NextResponse.json(
+    {
+      detail:
+        "API_ORIGIN must be the Railway HTTPS origin (https://<service>.up.railway.app), not the Vercel URL.",
+    },
+    { status: 503, headers: { "Cache-Control": "no-store" } },
+  );
+}
+
+export async function proxyToApi(request: NextRequest, apiPath: string): Promise<Response> {
   const origin = resolveApiOrigin();
   const onVercel = process.env.VERCEL === "1";
   if (onVercel && !isPublicHttpsOrigin(origin)) {
-    return NextResponse.json(
-      {
-        detail:
-          "API_ORIGIN must be set on Vercel (Phase 1 Railway HTTPS origin, no trailing slash).",
-      },
-      { status: 503 },
-    );
+    return missingApiOriginResponse();
   }
 
-  const suffix = path.join("/");
-  const url = new URL(`${origin}/${suffix}`);
+  const url = new URL(apiPath.replace(/^\/+/, ""), `${origin}/`);
   url.search = request.nextUrl.search;
 
   const method = request.method.toUpperCase();
@@ -70,31 +70,17 @@ async function proxy(request: NextRequest, path: string[]): Promise<Response> {
     init.body = await request.arrayBuffer();
   }
 
-  let upstream: Response;
   try {
-    upstream = await fetch(url, init);
+    const upstream = await fetch(url, init);
+    return new Response(upstream.body, {
+      status: upstream.status,
+      statusText: upstream.statusText,
+      headers: forwardResponseHeaders(upstream.headers),
+    });
   } catch {
     return NextResponse.json(
       { detail: `Could not reach the recommendation API at ${origin}.` },
-      { status: 502 },
+      { status: 502, headers: { "Cache-Control": "no-store" } },
     );
   }
-
-  return new Response(upstream.body, {
-    status: upstream.status,
-    statusText: upstream.statusText,
-    headers: forwardResponseHeaders(upstream.headers),
-  });
-}
-
-export async function GET(request: NextRequest, context: RouteContext) {
-  return proxy(request, (await context.params).path ?? []);
-}
-
-export async function POST(request: NextRequest, context: RouteContext) {
-  return proxy(request, (await context.params).path ?? []);
-}
-
-export async function OPTIONS(request: NextRequest, context: RouteContext) {
-  return proxy(request, (await context.params).path ?? []);
 }

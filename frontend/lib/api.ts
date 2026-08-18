@@ -1,4 +1,5 @@
 import type { FilterMetaResponse, RecommendRequest, RecommendResponse } from "./types";
+import fallbackFilters from "./catalog-filters.json";
 
 export class ApiError extends Error {
   status: number;
@@ -40,9 +41,25 @@ async function parseJson<T>(res: Response): Promise<T> {
   return data as T;
 }
 
+function isFilterMeta(data: unknown): data is FilterMetaResponse {
+  if (!data || typeof data !== "object") {
+    return false;
+  }
+  const locations = (data as { locations?: unknown }).locations;
+  return Array.isArray(locations) && locations.length > 0;
+}
+
 export async function getFilters(): Promise<FilterMetaResponse> {
-  const res = await fetch("/api/meta/filters", { cache: "no-store" });
-  return parseJson<FilterMetaResponse>(res);
+  try {
+    const res = await fetch("/api/meta/filters", { cache: "no-store" });
+    const data: unknown = await res.json().catch(() => null);
+    if (res.ok && isFilterMeta(data)) {
+      return data;
+    }
+  } catch {
+    // Use the baked catalog facets so Neighborhood still works if Railway is unset.
+  }
+  return fallbackFilters as FilterMetaResponse;
 }
 
 export async function recommend(body: RecommendRequest): Promise<RecommendResponse> {
