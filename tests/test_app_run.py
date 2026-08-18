@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from src.app.run import apply_volume_defaults, listen_port, seed_baked_catalog
+from src.app.run import apply_volume_defaults, extra_public_ports, listen_port, seed_baked_catalog
 
 
 def test_listen_port_defaults_to_8000():
@@ -23,6 +23,12 @@ def test_listen_port_rejects_non_integer():
 def test_listen_port_rejects_out_of_range():
     with pytest.raises(SystemExit, match="out of range"):
         listen_port({"PORT": "0"})
+
+
+def test_extra_public_ports_aliases_8000_and_8080():
+    assert extra_public_ports(8080) == [8000]
+    assert extra_public_ports(8000) == [8080]
+    assert extra_public_ports(3000) == [8000, 8080]
 
 
 def test_volume_default_used_when_parquet_exists(tmp_path):

@@ -5,6 +5,8 @@
  */
 
 const LOCAL_API_ORIGIN = "http://127.0.0.1:8000";
+/** Phase 1 Railway public origin (patient-simplicity production). */
+const RAILWAY_API_ORIGIN = "https://patient-simplicity-production-71c9.up.railway.app";
 const LOCALHOST_ORIGIN = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/i;
 
 export function stripOrigin(raw: string): string {
@@ -41,5 +43,11 @@ export function isPublicHttpsOrigin(origin: string): boolean {
 
 export function resolveApiOrigin(env: NodeJS.Dict<string> = process.env): string {
   const raw = stripOrigin(env.API_ORIGIN ?? "");
-  return raw || LOCAL_API_ORIGIN;
+  if (raw) {
+    return raw;
+  }
+  if (env.VERCEL === "1") {
+    return RAILWAY_API_ORIGIN;
+  }
+  return LOCAL_API_ORIGIN;
 }
