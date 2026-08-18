@@ -1,18 +1,29 @@
 import type { NextConfig } from "next";
-import { resolveApiOrigin } from "./lib/api-origin";
+import { isPublicHttpsOrigin, resolveApiOrigin } from "./lib/api-origin";
 
 const API_ORIGIN = resolveApiOrigin();
+const bakeRewrite = isPublicHttpsOrigin(API_ORIGIN);
 
-console.info("[tablepick] proxy /api/* → %s/*", API_ORIGIN);
+console.info(
+  "[tablepick] proxy /api/* → %s/* (%s)",
+  API_ORIGIN,
+  bakeRewrite ? "next.config rewrite" : "runtime /api route",
+);
 
 const nextConfig: NextConfig = {
   async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: `${API_ORIGIN}/:path*`,
-      },
-    ];
+    if (!bakeRewrite) {
+      return [];
+    }
+    // beforeFiles beats app/api/[...path] so Vercel can reverse-proxy (no 10s Hobby cap).
+    return {
+      beforeFiles: [
+        {
+          source: "/api/:path*",
+          destination: `${API_ORIGIN}/:path*`,
+        },
+      ],
+    };
   },
   async headers() {
     return [

@@ -144,7 +144,7 @@ Import [SushmitaDasgupta/zomato-ai-recommendation](https://github.com/SushmitaDa
 | `API_ORIGIN` | Phase 1 Railway HTTPS origin, **Build + Runtime**, no trailing slash |
 | Secrets | Do **not** add `GROQ_API_KEY`, `LLM_API_KEY`, or `NEXT_PUBLIC_*` LLM keys |
 
-`next build` on Vercel fails if `API_ORIGIN` is missing or still localhost, so a production UI cannot proxy to `127.0.0.1:8000`. Build logs should show `[tablepick] proxy /api/* → https://…/*`.
+`next build` on Vercel no longer requires `API_ORIGIN` at compile time. Set it for **Build** (platform rewrite) and/or **Runtime** (Next `/api` proxy). Build logs should show `[tablepick] proxy /api/* → https://…/*`.
 
 After the production Vercel URL exists, append it to Railway `CORS_ORIGINS` and redeploy the API (the UI itself is same-origin and does not need CORS).
 
