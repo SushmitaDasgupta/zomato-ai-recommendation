@@ -2,4 +2,7 @@ node_modules/
 .next/
 out/
 .turbo/
+.vercel
+.env
+.env*.local
 *.tsbuildinfo

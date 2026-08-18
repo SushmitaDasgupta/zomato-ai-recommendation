@@ -23,6 +23,7 @@ frontend/node_modules/
 frontend/.next/
 frontend/out/
 frontend/.turbo/
+frontend/.vercel/
 
 # Local Node binary (not committed)
 .tools/

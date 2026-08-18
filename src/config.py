@@ -96,7 +96,16 @@ class Settings(BaseSettings):
         return bool(self.resolved_llm_api_key())
 
     def cors_origin_list(self) -> list[str]:
-        return [part.strip() for part in self.cors_origins.split(",") if part.strip()]
+        """Exact browser origins (Phase 2 Vercel URL plus local Next).
+
+        Trailing slashes are stripped so a pasted ``https://app.vercel.app/`` still matches.
+        """
+        seen: list[str] = []
+        for part in self.cors_origins.split(","):
+            origin = part.strip().rstrip("/")
+            if origin and origin not in seen:
+                seen.append(origin)
+        return seen
 
 
 @lru_cache(maxsize=1)

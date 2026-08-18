@@ -124,6 +124,32 @@ The Tablepick UI is driven from catalog chips/autocomplete (location + cuisine),
 
 ---
 
+## Production
+
+Two services. The browser only talks to Tablepick; Groq keys stay on Railway.
+
+### Phase 1 — API on Railway
+
+Repo root (`railway.toml`). Do not set `PORT`. Public origin looks like `https://<service>.up.railway.app` (no trailing slash).
+
+### Phase 2 — Tablepick on Vercel
+
+Import [SushmitaDasgupta/zomato-ai-recommendation](https://github.com/SushmitaDasgupta/zomato-ai-recommendation). In the Vercel project:
+
+| Setting | Value |
+|---|---|
+| Root Directory | `frontend` |
+| Framework | Next.js (`frontend/vercel.json`) |
+| Build / Install | `npm run build` / `npm install` |
+| `API_ORIGIN` | Phase 1 Railway HTTPS origin, **Build + Runtime**, no trailing slash |
+| Secrets | Do **not** add `GROQ_API_KEY`, `LLM_API_KEY`, or `NEXT_PUBLIC_*` LLM keys |
+
+`next build` on Vercel fails if `API_ORIGIN` is missing or still localhost, so a production UI cannot proxy to `127.0.0.1:8000`. Build logs should show `[tablepick] proxy /api/* → https://…/*`.
+
+After the production Vercel URL exists, append it to Railway `CORS_ORIGINS` and redeploy the API (the UI itself is same-origin and does not need CORS).
+
+---
+
 ## How the pipeline works
 
 **normalize → filter/score (15–30 candidates) → Groq rank/explain → ground IDs to the catalog → respond**

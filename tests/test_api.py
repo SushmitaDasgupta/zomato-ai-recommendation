@@ -32,6 +32,13 @@ def _id_named(catalog, name: str) -> str:
     return str(catalog.frame.loc[catalog.frame["name"] == name, "id"].iloc[0])
 
 
+def test_cors_allows_local_next_origin(catalog):
+    client = TestClient(create_app(catalog=catalog))
+    response = client.get("/health", headers={"Origin": "http://localhost:3000"})
+    assert response.status_code == 200
+    assert response.headers.get("access-control-allow-origin") == "http://localhost:3000"
+
+
 def test_health_ok(catalog):
     client = TestClient(create_app(catalog=catalog))
     response = client.get("/health")

@@ -33,7 +33,9 @@ export function ResultsView() {
       const message =
         err instanceof ApiError
           ? err.message
-          : "Could not reach the recommendation API. Is uvicorn running on port 8000?";
+          : process.env.NODE_ENV === "production"
+            ? "Could not reach the recommendation API. Try again in a moment."
+            : "Could not reach the recommendation API. Is uvicorn running on port 8000?";
       setError(message);
       setData(null);
     } finally {
