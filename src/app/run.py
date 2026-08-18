@@ -77,16 +77,14 @@ def main() -> None:
     apply_volume_defaults()
     seed_baked_catalog()
     port = listen_port()
-    print("start-api: python={0} PORT={1} DATA_CACHE_DIR={2}".format(
+    print("start-api: python={0} listening 0.0.0.0:{1} DATA_CACHE_DIR={2}".format(
         sys.executable,
         port,
         os.environ.get("DATA_CACHE_DIR", "(default)"),
     ), flush=True)
 
-    from src.data.ingest import ingest
-
-    ingest()
-
+    # Bind $PORT before any Hugging Face ingest. A blocked start makes Railway
+    # return HTTP 502 "Application failed to respond".
     import uvicorn
 
     uvicorn.run(
@@ -95,6 +93,7 @@ def main() -> None:
         port=port,
         proxy_headers=True,
         forwarded_allow_ips="*",
+        timeout_keep_alive=75,
     )
 
 

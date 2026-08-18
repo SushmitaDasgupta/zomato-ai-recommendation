@@ -128,12 +128,13 @@ def test_budget_config_validation():
         Settings(budget_low_max=2000, budget_medium_max=500)
 
 
-def test_startup_fails_when_catalog_missing(monkeypatch):
+def test_startup_serves_health_when_catalog_missing(monkeypatch):
     def boom(cache_dir=None):
         raise CatalogCacheError("missing cache")
 
     monkeypatch.setattr("src.app.main.Catalog.load", boom)
-    app = create_app()
-    with pytest.raises(CatalogCacheError):
-        with TestClient(app):
-            pass
+    client = TestClient(create_app())
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json()["status"] == "degraded"
+    assert client.get("/").json()["status"] == "degraded"

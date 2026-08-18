@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import threading
 from contextlib import asynccontextmanager
 from typing import Optional
 
@@ -15,7 +16,6 @@ from src.app.schemas.meta import BudgetBounds, FilterMetaResponse
 from src.app.schemas.recommend import RecommendRequest, RecommendResponse
 from src.config import get_settings
 from src.data.catalog import Catalog
-from src.data.ingest import CatalogCacheError
 from src.engine.recommend import recommend
 from src.llm.client import LLMClient
 from src.observability import configure_logging, get_request_id, metrics, set_request_id
@@ -37,19 +37,22 @@ def create_app(
     async def lifespan(app: FastAPI):
         configure_logging()
         if not hasattr(app.state, "catalog"):
+            app.state.catalog = None
             if load_catalog:
-                app.state.catalog = Catalog.load()
-            else:
-                app.state.catalog = None
+                def warm() -> None:
+                    try:
+                        loaded_catalog = Catalog.load()
+                        app.state.catalog = loaded_catalog
+                        logger.info("Catalog warmed rows=%s", len(loaded_catalog.frame))
+                    except Exception:
+                        logger.exception(
+                            "Catalog failed to load; /health stays up so Railway can bind $PORT"
+                        )
+
+                threading.Thread(target=warm, daemon=True, name="catalog-warm").start()
         loaded = getattr(app.state, "catalog", None)
-        if loaded is None:
+        if loaded is None and not load_catalog:
             logger.warning("API started without a processed catalog. Run: python -m src.data.ingest")
-            if load_catalog:
-                raise CatalogCacheError(
-                    "Processed catalog not found. Run: python -m src.data.ingest"
-                )
-        else:
-            logger.info("Catalog warmed rows=%s", len(loaded.frame))
         yield
 
     app = FastAPI(
@@ -88,6 +91,15 @@ def create_app(
                 detail="Processed catalog not found. Run: python -m src.data.ingest",
             )
         return loaded
+
+    @app.get("/")
+    def root():
+        loaded = getattr(app.state, "catalog", None)
+        return {
+            "service": "zomato-ai-recommendation",
+            "health": "/health",
+            "status": "ok" if loaded is not None else "degraded",
+        }
 
     @app.get("/health")
     def health():
