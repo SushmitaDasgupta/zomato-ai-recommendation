@@ -1,0 +1,14 @@
+# Keep the Railway API image Python-only and smaller.
+frontend
+frontend/node_modules
+frontend/.next
+.tools
+.venv
+venv
+stitch_tablepick_ai_dining_guide
+docs
+.git
+.pytest_cache
+__pycache__
+*.pyc
+.env

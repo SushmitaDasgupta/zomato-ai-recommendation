@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tablepick - Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#920800",
+                        "on-secondary-fixed": "#281900",
+                        "surface": "#1e100d",
+                        "inverse-on-surface": "#3e2c29",
+                        "surface-tint": "#ffb4a7",
+                        "surface-bright": "#483531",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#fadcd7",
+                        "tertiary-container": "#3499d3",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#e4beb7",
+                        "primary-fixed": "#ffdad4",
+                        "surface-container-low": "#271815",
+                        "secondary-container": "#5c451e",
+                        "on-tertiary": "#00344e",
+                        "on-error": "#690005",
+                        "inverse-primary": "#b91e0d",
+                        "on-surface": "#fadcd7",
+                        "surface-container-high": "#372623",
+                        "on-tertiary-container": "#002d44",
+                        "primary": "#ffb4a7",
+                        "secondary-fixed": "#ffdeac",
+                        "primary-container": "#ff553d",
+                        "primary-fixed-dim": "#ffb4a7",
+                        "on-primary": "#670400",
+                        "on-secondary-fixed-variant": "#59431c",
+                        "background": "#1e100d",
+                        "tertiary-fixed": "#c9e6ff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "tertiary-fixed-dim": "#8aceff",
+                        "tertiary": "#8aceff",
+                        "error-container": "#93000a",
+                        "surface-dim": "#1e100d",
+                        "on-secondary-container": "#d4b483",
+                        "on-primary-container": "#5b0300",
+                        "surface-container": "#2c1c19",
+                        "outline": "#ab8983",
+                        "outline-variant": "#5b403b",
+                        "secondary": "#e3c290",
+                        "on-tertiary-fixed-variant": "#004b6f",
+                        "on-secondary": "#412d07",
+                        "on-primary-fixed": "#400200",
+                        "surface-container-highest": "#43302d",
+                        "surface-container-lowest": "#180a08",
+                        "inverse-surface": "#fadcd7",
+                        "surface-variant": "#43302d",
+                        "secondary-fixed-dim": "#e3c290"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "lg": "40px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "margin-desktop": "64px",
+                        "base": "8px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md-mobile": ["Newsreader"],
+                        "body-lg": ["Geist"],
+                        "title-lg": ["Newsreader"],
+                        "display-lg": ["Newsreader"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Newsreader"],
+                        "label-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0E1114; color: #fadcd7; }
+        .hairline-border { border: 1px solid rgba(255, 255, 255, 0.08); }
+        .hairline-border-b { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .hairline-border-r { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+        .bg-level-1 { background-color: #161B20; }
+        .bg-level-2 { background-color: #1C232A; }
+        .text-gold { color: #D4B483; }
+        .border-gold { border-color: #D4B483; }
+        .text-tomato { color: #E23D28; }
+        .bg-tomato { background-color: #E23D28; }
+        .border-tomato { border-color: #E23D28; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full z-50 sticky top-0 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary dark:text-primary italic">Tablepick</h1>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant dark:text-on-surface-variant">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">location_on</span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-container p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Sidebar (Preferences Panel) -->
+<aside class="hidden md:flex flex-col w-[380px] h-[calc(100vh-64px)] sticky top-16 bg-level-1 hairline-border-r p-lg overflow-y-auto shrink-0">
+<h2 class="font-headline-md text-headline-md mb-lg">Your Request</h2>
+<div class="space-y-md">
+<div class="flex flex-col gap-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Location</span>
+<div class="flex items-center gap-sm bg-surface p-sm rounded-lg hairline-border">
+<span class="material-symbols-outlined text-on-surface-variant">location_on</span>
+<span class="font-body-lg text-body-lg text-on-surface">Indiranagar</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Budget</span>
+<div class="flex items-center gap-sm bg-surface p-sm rounded-lg hairline-border">
+<span class="material-symbols-outlined text-on-surface-variant">payments</span>
+<span class="font-body-lg text-body-lg text-on-surface">Medium</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Cuisine</span>
+<div class="flex flex-wrap gap-sm">
+<span class="bg-surface px-md py-sm rounded-full hairline-border font-label-md text-label-md text-on-surface">Italian</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Preferences</span>
+<textarea class="w-full bg-surface text-on-surface font-body-lg text-body-lg p-md rounded-lg hairline-border focus:border-tomato focus:ring-0 resize-none h-32" readonly="">romantic rooftop</textarea>
+</div>
+</div>
+<div class="mt-auto pt-lg">
+<button class="w-full bg-transparent hairline-border text-on-surface font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container transition-colors duration-200">Edit Request</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-[#0E1114]">
+<div class="max-w-4xl mx-auto space-y-lg">
+<!-- Summary Banner -->
+<div class="bg-level-1 p-md rounded-lg hairline-border flex items-start gap-md">
+<span class="material-symbols-outlined text-gold mt-1">auto_awesome</span>
+<p class="font-body-lg text-body-lg text-on-surface">Strong Italian picks near Indiranagar with solid ratings.</p>
+</div>
+<!-- Results List -->
+<div class="space-y-lg">
+<!-- Card 1 (Hero) -->
+<article class="bg-level-2 rounded-xl hairline-border overflow-hidden group">
+<div class="relative h-64 sm:h-80 w-full bg-surface">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional photograph of a romantic rooftop dining area at an Italian restaurant at dusk. The scene is elegantly lit with warm string lights and candles on tables, overlooking a blurry city skyline. The aesthetic is premium, dark-mode compatible, and inviting, with a focus on high-end culinary ambiance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAro0huZD6HhQcC64Fz6jZ_rp4wXehNplZ4VkCq2PAkoXgXgsaiXdhGIEhNoQp4zA2bwd7PZ9n73hGqL--rWeFnx_9hqcFWL1ft7afqpSnJNlf7LuaUvezYD9GZ8I0_eD1zJUhfrkPs3sQ1A1WeCherDlf1boAVfLnBjlKL23IdcMdd2_VT3z9vxsgtDEwVbwU5rIXWrowehdv7uYoDHwa6I3mUK-W2cpQSfj7nUzAOySBRVTLCpsau"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1C232A] to-transparent"></div>
+<div class="absolute top-md left-md bg-tomato text-[#F4F1EA] w-12 h-12 rounded-full flex items-center justify-center font-headline-md text-headline-md shadow-[0_0_15px_rgba(226,61,40,0.4)]">1</div>
+<div class="absolute bottom-md left-md right-md">
+<h3 class="font-display-lg text-display-lg text-on-surface mb-xs">The Globe Grub</h3>
+<div class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant flex-wrap">
+<span>Marathahalli</span>
+<span>•</span>
+<span>₹1,300 for two</span>
+<span>•</span>
+<div class="flex items-center gap-xs">
+<span class="text-tomato">4.8</span>
+<div class="flex gap-[2px]">
+<span class="w-2 h-2 rounded-full bg-tomato"></span>
+<span class="w-2 h-2 rounded-full bg-tomato"></span>
+<span class="w-2 h-2 rounded-full bg-tomato"></span>
+<span class="w-2 h-2 rounded-full bg-tomato"></span>
+<span class="w-2 h-2 rounded-full bg-tomato opacity-50"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div class="flex gap-sm flex-wrap">
+<span class="bg-surface px-sm py-xs rounded text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider hairline-border">Italian</span>
+<span class="bg-surface px-sm py-xs rounded text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider hairline-border">Continental</span>
+</div>
+<div class="border-l-2 border-gold pl-md py-xs">
+<p class="font-title-lg text-title-lg italic text-gold">"High rating, fits a medium budget, and the casual dining room matches a family-friendly ask."</p>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-level-2 rounded-lg hairline-border p-md flex flex-col sm:flex-row gap-md items-start group hover:bg-[#222B33] transition-colors duration-200">
+<div class="w-10 h-10 shrink-0 bg-surface rounded-full flex items-center justify-center font-headline-md-mobile text-headline-md-mobile text-on-surface-variant hairline-border">2</div>
+<div class="flex-1 space-y-sm">
+<h3 class="font-headline-md text-headline-md-mobile sm:text-headline-md text-on-surface">TBC Sky Lounge</h3>
+<div class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span>HSR</span>
+<span>•</span>
+<span class="uppercase tracking-wider">Italian</span>
+</div>
+</div>
+<div class="w-full sm:w-48 h-32 bg-surface rounded hairline-border overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A sophisticated close-up shot of a gourmet Italian pizza or pasta dish presented on a rustic dark plate. The lighting is moody and directional, highlighting the textures of the food against a dark, minimal background. Premium restaurant food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH1hijTZ6cqq2JZnAMApbZF8I3Y3mcd1rhQj3e5Wtz37GkhYoCfKhmMs_A-u0yY25uMul8cQzhBHDH1EE4D1BpVofdCUMPXbjwI4J2oYVYcj_E9AMB_ZE_44AIvVirznXhGk5tbtX-vYBidugMnm6anLgzoI1js0rgimFRfFblFY_59Z8R8gtyjUpyrfRm9MwkG6OWo4fnB0wNlVyB5ez2FLTHGgz4SsO5UUdvdj5sOm29wKPHwLou"/>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-level-2 rounded-lg hairline-border p-md flex flex-col sm:flex-row gap-md items-start group hover:bg-[#222B33] transition-colors duration-200">
+<div class="w-10 h-10 shrink-0 bg-surface rounded-full flex items-center justify-center font-headline-md-mobile text-headline-md-mobile text-on-surface-variant hairline-border">3</div>
+<div class="flex-1 space-y-sm">
+<h3 class="font-headline-md text-headline-md-mobile sm:text-headline-md text-on-surface">The Pizza Bakery</h3>
+<div class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span>Indiranagar</span>
+<span>•</span>
+<span class="uppercase tracking-wider">Italian</span>
+</div>
+</div>
+<div class="w-full sm:w-48 h-32 bg-surface rounded hairline-border overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="An elegant interior view of a modern Italian restaurant with sleek dark wood furniture, ambient warm lighting, and a refined atmosphere. The image feels upscale and perfectly suited for a premium dining app's dark mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFSGd-Gh-6C8G1ZqamiEpNBT1Jf-09f9MrJDelndVeIyAvm_ZY3XFpr9YLgIYoB9dPZPE1oK5s8gP-T0iDBi_bNsuCW9IDKV2TZYCiC4yJWgTVZvwHXfBBatizdVbhpxW8Pw1kC3jKTfzKRGdFD-fUZtrQ7qDsQJPAF9K1URZB4OHd9IDtEP2L3c2hWeCVpnrEs08KMYNCHt_2kiYUbMx7c1MXATxBPdoZhUO1TvwJ0RvsXoPsyYGL"/>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-level-2 rounded-lg hairline-border p-md flex flex-col sm:flex-row gap-md items-start group hover:bg-[#222B33] transition-colors duration-200">
+<div class="w-10 h-10 shrink-0 bg-surface rounded-full flex items-center justify-center font-headline-md-mobile text-headline-md-mobile text-on-surface-variant hairline-border">4</div>
+<div class="flex-1 space-y-sm">
+<h3 class="font-headline-md text-headline-md-mobile sm:text-headline-md text-on-surface">Chianti</h3>
+<div class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span>Koramangala 5th Block</span>
+<span>•</span>
+<span class="uppercase tracking-wider">Italian</span>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="bg-level-2 rounded-lg hairline-border p-md flex flex-col sm:flex-row gap-md items-start group hover:bg-[#222B33] transition-colors duration-200">
+<div class="w-10 h-10 shrink-0 bg-surface rounded-full flex items-center justify-center font-headline-md-mobile text-headline-md-mobile text-on-surface-variant hairline-border">5</div>
+<div class="flex-1 space-y-sm">
+<h3 class="font-headline-md text-headline-md-mobile sm:text-headline-md text-on-surface">Chianti</h3>
+<div class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span>Indiranagar</span>
+<span>•</span>
+<span class="uppercase tracking-wider">Italian</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-lg pt-md hairline-border-t bg-[#0E1114] flex flex-col md:flex-row justify-between items-center w-full max-w-4xl mx-auto">
+<p class="font-label-sm text-label-sm text-on-surface-variant">5 shown • 25 candidates • 1.8s</p>
+<div class="flex gap-md mt-sm md:mt-0">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Terms</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Support</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,6 @@
+url,address,name,online_order,book_table,rate,votes,location,rest_type,cuisines,approx_cost(for two people),listed_in(city)
+http://example.com/1,12 MG Road,Trattoria XYZ,Yes,Yes,4.4/5,210,Indiranagar,Casual Dining,"Italian, Continental","1,200",Bangalore
+http://example.com/2,1 Brigade Rd,Cheap Eats,No,No,NEW,12,Koramangala,Quick Bites,Chinese,₹250,Bangalore
+http://example.com/3,,Dropped No Location,Yes,No,4.0/5,10,,Cafe,Italian,800,Bangalore
+http://example.com/4,2 Church St,Fine Place,Yes,Yes,4.8/5,90,MG Road,Fine Dining,Italian,"2,400",Bangalore
+http://example.com/5,8 Residency Rd,Family Dhaba,Yes,No,3.9/5,55,Jayanagar,Casual Dining,"North Indian, Chinese",650,Bangalore

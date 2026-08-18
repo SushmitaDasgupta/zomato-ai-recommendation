@@ -1,0 +1,6 @@
+# Python-only API image. Without this, frontend/package.json can pull in Node.
+providers = ["python"]
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
+PYTHONUNBUFFERED = "1"

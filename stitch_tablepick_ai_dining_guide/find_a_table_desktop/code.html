@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tablepick - Find a table</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500;1,6..72,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#920800",
+                    "on-secondary-fixed": "#281900",
+                    "surface": "#1e100d",
+                    "inverse-on-surface": "#3e2c29",
+                    "surface-tint": "#ffb4a7",
+                    "surface-bright": "#483531",
+                    "on-error-container": "#ffdad6",
+                    "on-background": "#fadcd7",
+                    "tertiary-container": "#3499d3",
+                    "error": "#ffb4ab",
+                    "on-surface-variant": "#e4beb7",
+                    "primary-fixed": "#ffdad4",
+                    "surface-container-low": "#271815",
+                    "secondary-container": "#5c451e",
+                    "on-tertiary": "#00344e",
+                    "on-error": "#690005",
+                    "inverse-primary": "#b91e0d",
+                    "on-surface": "#fadcd7",
+                    "surface-container-high": "#372623",
+                    "on-tertiary-container": "#002d44",
+                    "primary": "#ffb4a7",
+                    "secondary-fixed": "#ffdeac",
+                    "primary-container": "#ff553d",
+                    "primary-fixed-dim": "#ffb4a7",
+                    "on-primary": "#670400",
+                    "on-secondary-fixed-variant": "#59431c",
+                    "background": "#1e100d",
+                    "tertiary-fixed": "#c9e6ff",
+                    "on-tertiary-fixed": "#001e2f",
+                    "tertiary-fixed-dim": "#8aceff",
+                    "tertiary": "#8aceff",
+                    "error-container": "#93000a",
+                    "surface-dim": "#1e100d",
+                    "on-secondary-container": "#d4b483",
+                    "on-primary-container": "#5b0300",
+                    "surface-container": "#2c1c19",
+                    "outline": "#ab8983",
+                    "outline-variant": "#5b403b",
+                    "secondary": "#e3c290",
+                    "on-tertiary-fixed-variant": "#004b6f",
+                    "on-secondary": "#412d07",
+                    "on-primary-fixed": "#400200",
+                    "surface-container-highest": "#43302d",
+                    "surface-container-lowest": "#180a08",
+                    "inverse-surface": "#fadcd7",
+                    "surface-variant": "#43302d",
+                    "secondary-fixed-dim": "#e3c290"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "lg": "40px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "margin-desktop": "64px",
+                    "base": "8px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "headline-md-mobile": [
+                            "Newsreader"
+                    ],
+                    "body-lg": [
+                            "Geist"
+                    ],
+                    "title-lg": [
+                            "Newsreader"
+                    ],
+                    "display-lg": [
+                            "Newsreader"
+                    ],
+                    "body-md": [
+                            "Geist"
+                    ],
+                    "label-sm": [
+                            "Geist"
+                    ],
+                    "headline-md": [
+                            "Newsreader"
+                    ],
+                    "label-md": [
+                            "Geist"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "title-lg": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0E1114; /* Forced absolute base color override as per spec */
+            color: #fadcd7;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2c1c19;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5b403b;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Mobile Top App Bar (Visible only on md:hidden) -->
+<header class="md:hidden bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant flex justify-between items-center px-margin-mobile h-16 w-full z-50 fixed top-0">
+<div class="font-headline-md-mobile text-headline-md-mobile text-primary dark:text-primary italic">
+            Tablepick
+        </div>
+<div class="flex items-center gap-4 text-primary dark:text-primary">
+<span class="material-symbols-outlined hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-200 p-1 rounded">location_on</span>
+<span class="material-symbols-outlined hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-200 p-1 rounded">tune</span>
+</div>
+</header>
+<!-- SideNavBar (Desktop Fixed) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-screen p-md bg-surface-container dark:bg-surface-container border-r border-outline-variant dark:border-outline-variant docked left-0 h-full w-64 z-40 transition-all duration-200">
+<!-- Brand Header -->
+<div class="mb-lg">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary italic mb-1">Tablepick</h1>
+<div class="inline-block px-2 py-1 bg-surface-container-high rounded text-on-surface-variant font-label-sm text-label-sm border border-outline-variant">Bangalore catalog</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col space-y-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 text-primary dark:text-primary font-bold border-r-2 border-primary group" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-body-md text-body-md">Recommendations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 text-on-surface-variant dark:text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-body-md text-body-md">Saved</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 text-on-surface-variant dark:text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md text-body-md">History</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 text-on-surface-variant dark:text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</li>
+</ul>
+<!-- User/Bottom Area -->
+<div class="mt-auto pt-4 border-t border-outline-variant flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+</div>
+<div class="font-label-md text-label-md text-on-surface">Account</div>
+</div>
+</nav>
+<!-- Main Workspace Area -->
+<main class="flex-1 flex flex-col md:flex-row mt-16 md:mt-0 md:ml-64 h-[calc(100vh-4rem)] md:h-screen w-full relative">
+<!-- Left Filter Panel (The "Settings" for the search) -->
+<aside class="w-full md:w-[380px] flex-shrink-0 bg-[#161B20] border-r border-outline-variant dark:border-outline-variant h-full overflow-y-auto flex flex-col z-30">
+<div class="p-md flex-1 flex flex-col gap-lg">
+<!-- Location -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Neighborhood</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">location_on</span>
+<input class="w-full bg-[#161B20] border border-outline-variant focus:border-primary-container text-on-surface font-body-md text-body-md rounded-md py-2 pl-10 pr-3 focus:ring-0 transition-colors placeholder:text-surface-variant" placeholder="Search localities..." type="text" value="Indiranagar, Bangalore"/>
+</div>
+</div>
+<!-- Budget -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Budget Level</label>
+<div class="flex rounded-md border border-outline-variant overflow-hidden p-[2px] bg-[#0E1114]">
+<button class="flex-1 py-1.5 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors rounded-sm">Low</button>
+<button class="flex-1 py-1.5 text-center font-label-md text-label-md text-on-primary-container bg-primary-container border border-primary-container rounded-sm shadow-sm">Medium</button>
+<button class="flex-1 py-1.5 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors rounded-sm">High</button>
+</div>
+</div>
+<!-- Cuisines -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Cuisine Focus</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1 rounded border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:border-outline hover:text-on-surface transition-colors bg-transparent">South Indian</button>
+<button class="px-3 py-1 rounded border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:border-outline hover:text-on-surface transition-colors bg-transparent">Italian</button>
+<button class="px-3 py-1 rounded border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:border-outline hover:text-on-surface transition-colors bg-transparent">Pan Asian</button>
+<button class="px-3 py-1 rounded border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:border-outline hover:text-on-surface transition-colors bg-transparent">Craft Beer</button>
+<button class="px-3 py-1 rounded border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:border-outline hover:text-on-surface transition-colors bg-transparent">Continental</button>
+</div>
+</div>
+<!-- Min Rating -->
+<div>
+<div class="flex justify-between mb-2">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Minimum Rating</label>
+<span class="font-label-sm text-label-sm text-secondary">3.5+</span>
+</div>
+<input class="w-full h-1 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary-container" max="5" min="1" step="0.1" type="range" value="3.5"/>
+</div>
+<!-- Custom Intent -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Vibe &amp; Intent (Optional)</label>
+<textarea class="w-full bg-[#0E1114] border border-outline-variant focus:border-primary-container text-on-surface font-body-md text-body-md rounded-md p-3 focus:ring-0 transition-colors h-24 resize-none placeholder:text-surface-variant" placeholder="Describe what you're looking for..."></textarea>
+<div class="flex flex-wrap gap-2 mt-2">
+<button class="text-xs font-label-sm text-secondary border border-outline-variant/50 rounded-full px-2 py-0.5 hover:bg-surface-container transition-colors">+ family-friendly</button>
+<button class="text-xs font-label-sm text-secondary border border-outline-variant/50 rounded-full px-2 py-0.5 hover:bg-surface-container transition-colors">+ romantic</button>
+<button class="text-xs font-label-sm text-secondary border border-outline-variant/50 rounded-full px-2 py-0.5 hover:bg-surface-container transition-colors">+ rooftop</button>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom CTA -->
+<div class="p-md border-t border-outline-variant bg-[#161B20]">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-3 rounded-lg flex justify-center items-center gap-2 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                    Get recommendations
+                </button>
+</div>
+</aside>
+<!-- Right Content Canvas (The Results Stage) -->
+<section class="flex-1 bg-[#0E1114] relative flex flex-col overflow-hidden">
+<!-- Canvas Center Content -->
+<div class="flex-1 flex flex-col items-center justify-center p-md md:p-margin-desktop text-center relative z-10">
+<div class="max-w-md w-full mx-auto space-y-6">
+<!-- Preset pill suggestion -->
+<div class="flex items-center justify-center flex-wrap gap-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-secondary text-sm">magic_button</span>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full border border-outline-variant bg-[#161B20] font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                            Bangalore <span class="mx-1">·</span> Italian <span class="mx-1">·</span> medium <span class="mx-1">·</span> Romantic rooftop
+                        </div>
+</div>
+<!-- Main Message -->
+<h2 class="font-title-lg text-title-lg text-on-surface">
+                        We'll filter the catalog first,<br/>then rank a shortlist.
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Adjust parameters on the left to begin generating.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only - Replaces SideNav) -->
+<nav class="md:hidden flex flex-row justify-between items-center py-sm px-margin-mobile w-full bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline-variant fixed bottom-0 left-0 z-50">
+<a class="flex flex-col items-center gap-1 flex-1 text-primary dark:text-primary" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Recs</span>
+</a>
+<a class="flex flex-col items-center gap-1 flex-1 text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</a>
+<a class="flex flex-col items-center gap-1 flex-1 text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 flex-1 text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+</body></html>
