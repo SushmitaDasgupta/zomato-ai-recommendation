@@ -9,11 +9,10 @@ __pycache__/
 .env
 .DS_Store
 
-# Hugging Face / processed caches — rebuild with `python -m src.data.ingest`
+# Hugging Face raw downloads. Processed parquet is committed so Railway can
+# boot and pass /health without a multi-minute ingest on first start.
 data/raw/*
 !data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
 
 reports/
 .huggingface/

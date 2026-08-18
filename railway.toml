@@ -5,6 +5,7 @@
 builder = "NIXPACKS"
 watchPatterns = [
   "src/**",
+  "data/processed/**",
   "pyproject.toml",
   "requirements.txt",
   "scripts/start-api.sh",
@@ -13,7 +14,7 @@ watchPatterns = [
 ]
 
 [deploy]
-startCommand = "bash scripts/start-api.sh"
+startCommand = "PATH=/opt/venv/bin:$PATH PYTHONPATH=/app python -m src.app.run"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"

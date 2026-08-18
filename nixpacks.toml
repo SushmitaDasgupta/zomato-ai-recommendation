@@ -4,3 +4,4 @@ providers = ["python"]
 [variables]
 NIXPACKS_PYTHON_VERSION = "3.11"
 PYTHONUNBUFFERED = "1"
+PYTHONPATH = "/app"

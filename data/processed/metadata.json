@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "dataset_id": "ManikaSaini/zomato-restaurant-recommendation",
+  "source": "huggingface:ManikaSaini/zomato-restaurant-recommendation",
+  "row_count": 51696,
+  "created_at": "2026-08-18T12:42:59.118187+00:00",
+  "budget_bands": {
+    "low_max": 500.0,
+    "medium_max": 1500.0,
+    "unit": "INR approximate cost for two"
+  },
+  "assumed_cost_unit": "INR cost for two (dataset scale; thresholds are configurable)"
+}
